@@ -84,19 +84,18 @@ export default function FlashcardsPage() {
     setLoading(false)
   }
 
-  const handleCorrectAnswer = () => {
+  const handleAnswer = (isCorrect: boolean) => {
     const currentWord = words[currentWordIndex]
-    const newScore = storage.updateWordProgress(currentWord.id, true)
-    
+    const newScore = storage.updateWordProgress(currentWord.id, isCorrect)
     setProgress(prev => ({
       ...prev,
       [currentWord.id]: newScore
     }))
-    
     setSession(prev => {
       const updated = {
         ...prev,
-        correctAnswers: prev.correctAnswers + 1,
+        correctAnswers: prev.correctAnswers + (isCorrect ? 1 : 0),
+        wrongAnswers: prev.wrongAnswers + (isCorrect ? 0 : 1),
         studiedWords: prev.studiedWords + 1
       }
       storage.setSessionStats(updated)
@@ -104,25 +103,8 @@ export default function FlashcardsPage() {
     })
   }
 
-  const handleIncorrectAnswer = () => {
-    const currentWord = words[currentWordIndex]
-    const newScore = storage.updateWordProgress(currentWord.id, false)
-    
-    setProgress(prev => ({
-      ...prev,
-      [currentWord.id]: newScore
-    }))
-    
-    setSession(prev => {
-      const updated = {
-        ...prev,
-        wrongAnswers: prev.wrongAnswers + 1,
-        studiedWords: prev.studiedWords + 1
-      }
-      storage.setSessionStats(updated)
-      return updated
-    })
-  }
+  const handleCorrectAnswer = () => handleAnswer(true)
+  const handleIncorrectAnswer = () => handleAnswer(false)
 
   const goToNextWord = () => {
     if (currentWordIndex < words.length - 1) {

@@ -34,19 +34,7 @@ export async function fetchActiveWords(): Promise<Word[]> {
     return data.words || []
   } catch (error) {
     console.error('API Error:', error)
-    // Fallback data for development
-    return [
-      { id: 1, en: "ability", tr: "kabiliyet" },
-      { id: 2, en: "about", tr: "hakkında" },
-      { id: 3, en: "above", tr: "yukarıda" },
-      { id: 4, en: "accept", tr: "kabul etmek" },
-      { id: 5, en: "access", tr: "erişim" },
-      { id: 6, en: "accident", tr: "kaza" },
-      { id: 7, en: "according", tr: "göre" },
-      { id: 8, en: "account", tr: "hesap" },
-      { id: 9, en: "accurate", tr: "doğru" },
-      { id: 10, en: "achieve", tr: "başarmak" }
-    ]
+    return []
   }
 }
 
@@ -129,7 +117,7 @@ export const storage = {
     }
   },
 
-  setSettings: (settings: any) => {
+  setSettings: (settings: { showTurkishFirst: boolean; autoFlip: boolean; studyMode: string }) => {
     try {
       localStorage.setItem('app_settings', JSON.stringify(settings))
     } catch (e) {
