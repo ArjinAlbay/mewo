@@ -156,34 +156,38 @@ function FlashcardsContent() {
 
   return (
     <div className="min-h-screen">
-      {/* Header */}
-      <div className="flex items-center justify-between p-4 bg-white border-b safe-top">
-        <Button 
-          variant="ghost" 
-          size="sm" 
-          onClick={() => router.push('/')}
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Geri
-        </Button>
-        
-        <div className="text-center">
-          <div className="text-sm text-gray-600">
-            {currentWordIndex + 1} / {words.length}
-          </div>
-          <div className="text-xs text-gray-500">
-            ✓ {session.correctAnswers} | ✗ {session.wrongAnswers}
-          </div>
-        </div>
-        
-        <Button 
-          variant="ghost" 
-          size="sm" 
-          onClick={() => router.push('/')}
-        >
-          <Home className="w-4 h-4" />
-        </Button>
-      </div>
+   {/* Header */}
+<div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white safe-top shadow-lg">
+  <Button 
+    variant="ghost" 
+    size="sm" 
+    onClick={() => router.push('/')}
+    className="text-white hover:bg-white/20 font-medium p-3"
+  >
+    <ArrowLeft className="w-8 h-8 mr-2" />
+    Geri
+  </Button>
+  
+  <div className="text-center">
+    <div className="text-sm font-semibold mb-1">
+      {currentWordIndex + 1} / {words.length}
+    </div>
+    <div className="text-xs bg-white/20 px-3 py-1 rounded-full">
+      <span className="text-green-200">✓ {session.correctAnswers}</span>
+      <span className="mx-2">|</span>
+      <span className="text-red-200">✗ {session.wrongAnswers}</span>
+    </div>
+  </div>
+  
+  <Button 
+    variant="ghost" 
+    size="sm" 
+    onClick={() => router.push('/')}
+    className="text-white hover:bg-white/20 font-medium p-3"
+  >
+    <Home className="w-8 h-8" />
+  </Button>
+</div>
 
       {/* Flashcard */}
       <Flashcard

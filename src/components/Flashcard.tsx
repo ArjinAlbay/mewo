@@ -67,17 +67,31 @@ export default function Flashcard({ word, totalWords, currentIndex, onCorrect, o
           </div>
         </div>
       </div>
-      {!answered ? (
-        <div className="space-y-3">
-          <Button onClick={() => { setAnswered(true); onIncorrect(); setTimeout(onNext, 1000) }} variant="outline" size="lg" className="flex-1 h-14 text-lg border-red-200 hover:bg-red-50 hover:border-red-300 mr-2"><X className="w-6 h-6 mr-2 text-red-500" />Bilmiyorum</Button>
-          <Button onClick={() => { setAnswered(true); onCorrect(); setTimeout(onNext, 1000) }} size="lg" className="flex-1 h-14 text-lg bg-green-500 hover:bg-green-600"><Check className="w-6 h-6 mr-2" />Biliyorum</Button>
-        </div>
-      ) : (
-        <div className="text-center mt-4">
-          <div className="text-lg font-semibold text-green-600">✓ Harika!</div>
-          <div className="text-sm text-gray-500 mt-1">Bir sonraki kelimeye geçiliyor...</div>
-        </div>
-      )}
+     {!answered ? (
+  <div className="flex space-x-3">
+    <Button 
+      onClick={() => { setAnswered(true); onIncorrect(); setTimeout(onNext, 1000) }} 
+      size="lg" 
+      className="flex-1 h-14 text-lg bg-red-500 text-white hover:bg-red-600 font-medium shadow-md"
+    >
+      <X className="w-6 h-6 mr-2" />
+      Bilmiyorum
+    </Button>
+    <Button 
+      onClick={() => { setAnswered(true); onCorrect(); setTimeout(onNext, 1000) }} 
+      size="lg" 
+      className="flex-1 h-14 text-lg bg-green-500 hover:bg-green-600 font-medium shadow-md"
+    >
+      <Check className="w-6 h-6 mr-2" />
+      Biliyorum
+    </Button>
+  </div>
+) : (
+  <div className="text-center mt-4">
+    <div className="text-lg font-semibold text-green-600">✓ Harika!</div>
+    <div className="text-sm text-gray-500 mt-1">Bir sonraki kelimeye geçiliyor...</div>
+  </div>
+)}
       
     </div>
   )

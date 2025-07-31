@@ -133,48 +133,51 @@ export default function StudentDashboard() {
     <div className="min-h-screen safe-top safe-bottom p-4">
       <div className="max-w-md mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Oxford 3000</h1>
-          <p className="text-gray-600">Kelime Ezberleme Uygulaması</p>
-        </div>
+       <div className="text-center mb-8">
+  <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-800 bg-clip-text text-transparent mb-3">
+    Oxford 3000
+  </h1>
+  <p className="text-gray-500 text-lg">Kelime Ezberleme Uygulaması</p>
+</div>
 
-        {/* Stats Overview */}
-        <div className="grid grid-cols-2 gap-4 mb-6">
-          <Card>
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-blue-600">{words.length}</div>
-              <div className="text-sm text-gray-500">Toplam Kelime</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent className="p-4 text-center">
-              <div className="text-2xl font-bold text-green-600">{getMasteredWords()}</div>
-              <div className="text-sm text-gray-500">Öğrenilen</div>
-            </CardContent>
-          </Card>
-        </div>
+       {/* Stats Overview */}
+<div className="grid grid-cols-2 gap-4 mb-6">
+  <Card className="border-0 shadow-lg bg-gradient-to-br from-blue-50 to-blue-100">
+    <CardContent className="p-6 text-center">
+      <div className="text-3xl font-bold text-blue-600 mb-1">{words.length}</div>
+      <div className="text-sm font-medium text-blue-700">Toplam Kelime</div>
+    </CardContent>
+  </Card>
+  <Card className="border-0 shadow-lg bg-gradient-to-br from-green-50 to-green-100">
+    <CardContent className="p-6 text-center">
+      <div className="text-3xl font-bold text-green-600 mb-1">{getMasteredWords()}</div>
+      <div className="text-sm font-medium text-green-700">Öğrenilen</div>
+    </CardContent>
+  </Card>
+</div>
 
-        {/* Overall Progress */}
-        <Card className="mb-6">
-          <CardHeader className="pb-3">
-            <CardTitle className="flex items-center text-lg">
-              <TrendingUp className="w-5 h-5 mr-2 text-blue-500" />
-              Genel İlerleme
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="flex justify-between text-sm text-gray-600 mb-2">
-              <span>İlerleme Durumu</span>
-              <span>{Math.round(getOverallProgress())}%</span>
-            </div>
-            <Progress value={getOverallProgress()} className="h-3 mb-3" />
-            <div className="flex justify-between text-xs text-gray-500">
-              <span>{getMasteredWords()} kelime öğrenildi</span>
-              <span>{words.length - getMasteredWords()} kelime kaldı</span>
-            </div>
-          </CardContent>
-        </Card>
-
+       {/* Overall Progress */}
+<Card className="mb-6 border-0 shadow-lg bg-gradient-to-br from-indigo-50 to-purple-50">
+  <CardHeader className="pb-3">
+    <CardTitle className="flex items-center text-lg font-semibold">
+      <TrendingUp className="w-5 h-5 mr-2 text-indigo-600" />
+      <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+        Genel İlerleme
+      </span>
+    </CardTitle>
+  </CardHeader>
+  <CardContent className="pt-0">
+    <div className="flex justify-between text-sm font-medium text-gray-700 mb-3">
+      <span>İlerleme Durumu</span>
+      <span className="text-indigo-600 font-bold">{Math.round(getOverallProgress())}%</span>
+    </div>
+    <Progress value={getOverallProgress()} className="h-4 mb-4" />
+    <div className="flex justify-between text-sm text-gray-600 font-medium">
+      <span className="text-green-600">✓ {getMasteredWords()} kelime öğrenildi</span>
+      <span className="text-orange-600">{words.length - getMasteredWords()} kelime kaldı</span>
+    </div>
+  </CardContent>
+</Card>
         {/* Current Session Stats */}
         {session.studiedWords > 0 && (
           <Card className="mb-6">
@@ -205,46 +208,44 @@ export default function StudentDashboard() {
 
         {/* Action Buttons */}
         <div className="space-y-4 mb-6">
-          <Button 
-            onClick={startStudySession}
-            size="lg" 
-            className="w-full h-16 text-lg bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
-          >
-            <Play className="w-6 h-6 mr-3" />
-            Çalışmaya Başla
-          </Button>
+         <Button 
+  onClick={startStudySession}
+  size="lg" 
+  className="w-full text-white h-16 text-lg font-semibold bg-gradient-to-r from-blue-500 via-purple-600 to-blue-500 hover:from-blue-600 hover:via-purple-700 hover:to-blue-600 transform hover:scale-105 transition-all duration-200 shadow-xl hover:shadow-2xl"
+>
+  <Play className="w-6 h-6 mr-3" />
+  Çalışmaya Başla
+</Button>
           
           <div className="grid grid-cols-2 gap-4">
-            <Button 
-              onClick={() => router.push('/flashcards?random=true')}
-              variant="outline" 
-              size="lg"
-              className="h-12"
-            >
-              <Zap className="w-5 h-5 mr-2" />
-              Rastgele
-            </Button>
-            <Button 
-              onClick={resetProgress}
-              variant="outline" 
-              size="lg"
-              className="h-12"
-            >
-              <RotateCcw className="w-5 h-5 mr-2" />
-              Sıfırla
-            </Button>
+           <Button 
+  onClick={() => router.push('/flashcards?random=true')}
+  size="lg"
+  className="h-12 bg-amber-500 text-white hover:bg-amber-600 transform hover:scale-105 transition-all duration-200 font-medium shadow-md"
+>
+  <Zap className="w-5 h-5 mr-2" />
+  Rastgele
+</Button>
+<Button 
+  onClick={resetProgress}
+  size="lg"
+  className="h-12 bg-red-500 text-white hover:bg-red-600 transform hover:scale-105 transition-all duration-200 font-medium shadow-md"
+>
+  <RotateCcw className="w-5 h-5 mr-2" />
+  Sıfırla
+</Button>
           </div>
         </div>
 
         {/* Word Progress List */}
         <Card>
-          <CardHeader className="pb-3">
+          <CardHeader>
             <CardTitle className="flex items-center text-lg">
-              <Target className="w-5 h-5 mr-2 text-orange-500" />
+              <Target className="w-5 mr-2 text-orange-500" />
               Kelime Durumu
             </CardTitle>
           </CardHeader>
-          <CardContent className="pt-0">
+          <CardContent className="pt-0"> 
             <div className="max-h-60 overflow-y-auto space-y-2">
               {words.slice(0, 10).map((word) => {
                 const wordScore = progress[word.id] || 0
