@@ -12,9 +12,6 @@ import {
   Volume2, 
   Eye, 
   EyeOff,
-  Trophy,
-  Target,
-  Zap
 } from 'lucide-react'
 import { Word } from '@/lib/api'
 
