@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft, Home } from 'lucide-react'
@@ -8,7 +8,8 @@ import { ArrowLeft, Home } from 'lucide-react'
 import { fetchActiveWords, storage, Word, StudySession } from '@/lib/api'
 import Flashcard from '@/components/Flashcard'
 
-export default function FlashcardsPage() {
+// İç komponent - useSearchParams kullanıyor
+function FlashcardsContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const isRandom = searchParams?.get('random') === 'true'
@@ -25,27 +26,6 @@ export default function FlashcardsPage() {
   })
   const [progress, setProgress] = useState<Record<number, number>>({})
   const [sessionStartTime, setSessionStartTime] = useState<number>(0)
-
-  useEffect(() => {
-    loadWordsAndStartSession()
-    setProgress(storage.getStudyProgress())
-  }, [])
-
-  // Update session time
-  useEffect(() => {
-    let interval: NodeJS.Timeout
-    if (sessionStartTime > 0) {
-      interval = setInterval(() => {
-        const newSession = {
-          ...session,
-          sessionTime: Math.floor((Date.now() - sessionStartTime) / 1000)
-        }
-        setSession(newSession)
-        storage.setSessionStats(newSession)
-      }, 1000)
-    }
-    return () => clearInterval(interval)
-  }, [sessionStartTime, session])
 
   const loadWordsAndStartSession = useCallback(async () => {
     setLoading(true)
@@ -82,7 +62,28 @@ export default function FlashcardsPage() {
       router.push('/')
     }
     setLoading(false)
-}, [isRandom, router])
+  }, [isRandom, router])
+
+  useEffect(() => {
+    loadWordsAndStartSession()
+    setProgress(storage.getStudyProgress())
+  }, [loadWordsAndStartSession])
+
+  // Update session time
+  useEffect(() => {
+    let interval: NodeJS.Timeout
+    if (sessionStartTime > 0) {
+      interval = setInterval(() => {
+        const newSession = {
+          ...session,
+          sessionTime: Math.floor((Date.now() - sessionStartTime) / 1000)
+        }
+        setSession(newSession)
+        storage.setSessionStats(newSession)
+      }, 1000)
+    }
+    return () => clearInterval(interval)
+  }, [sessionStartTime, session])
 
   const handleAnswer = (isCorrect: boolean) => {
     const currentWord = words[currentWordIndex]
@@ -195,5 +196,21 @@ export default function FlashcardsPage() {
         progress={progress}
       />
     </div>
+  )
+}
+
+// Ana komponent - Suspense wrapper
+export default function FlashcardsPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <div className="text-lg text-gray-600">Sayfa yükleniyor...</div>
+        </div>
+      </div>
+    }>
+      <FlashcardsContent />
+    </Suspense>
   )
 }
