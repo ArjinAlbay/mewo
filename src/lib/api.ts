@@ -1,5 +1,4 @@
-// src/lib/api.ts
-const TEACHER_API_URL = process.env.NEXT_PUBLIC_TEACHER_API_URL
+
 
 export interface Word {
   id: number
@@ -19,7 +18,7 @@ export interface StudySession {
 // Teacher API'den aktif kelimeleri getir
 export async function fetchActiveWords(): Promise<Word[]> {
   try {
-    const response = await fetch(`${TEACHER_API_URL}/api/active-words`, {
+    const response = await fetch(`/api/active-words`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
