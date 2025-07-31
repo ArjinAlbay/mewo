@@ -282,13 +282,7 @@ export default function StudentDashboard() {
           </CardContent>
         </Card>
 
-        {/* Settings Button */}
-        <div className="mt-6 text-center">
-          <Button variant="ghost" size="sm" className="text-gray-500">
-            <Settings className="w-4 h-4 mr-2" />
-            Ayarlar
-          </Button>
-        </div>
+       
       </div>
     </div>
   )

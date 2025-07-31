@@ -9,7 +9,6 @@ import {
   RotateCcw, 
   Check, 
   X, 
-  Volume2, 
   Eye, 
   EyeOff,
 } from 'lucide-react'
@@ -31,14 +30,7 @@ export default function Flashcard({ word, totalWords, currentIndex, onCorrect, o
   useEffect(() => { setIsFlipped(false); setAnswered(false) }, [word.id])
   const wordProgress = progress[word.id] || 0
   const progressPercent = (wordProgress / 5) * 100
-  const speakWord = (text: string, lang: 'en' | 'tr' = 'en') => {
-    if ('speechSynthesis' in window) {
-      const u = new SpeechSynthesisUtterance(text)
-      u.lang = lang === 'en' ? 'en-US' : 'tr-TR'
-      u.rate = 0.8
-      speechSynthesis.speak(u)
-    }
-  }
+ 
   return (
     <div className="flex flex-col h-full max-w-md mx-auto p-4">
       <div className="flex items-center justify-between mb-6">
@@ -61,18 +53,14 @@ export default function Flashcard({ word, totalWords, currentIndex, onCorrect, o
             <Card className="flip-card-front flex flex-col items-center justify-center p-8 bg-gradient-to-br from-blue-500 to-purple-600 text-white shadow-2xl border-0">
               <div className="text-center">
                 <div className="text-4xl font-bold mb-4">{word.en}</div>
-                <Button variant="secondary" size="sm" onClick={e => { e.stopPropagation(); speakWord(word.en, 'en') }} className="bg-white/20 hover:bg-white/30 text-white border-white/30">
-                  <Volume2 className="w-4 h-4 mr-2" />Dinle
-                </Button>
+                
               </div>
               <div className="absolute bottom-4 text-sm opacity-75 flex items-center"><Eye className="w-4 h-4 mr-1" />Çeviriyi görmek için dokun</div>
             </Card>
             <Card className="flip-card-back flex flex-col items-center justify-center p-8 bg-gradient-to-br from-green-500 to-teal-600 text-white shadow-2xl border-0">
               <div className="text-center">
                 <div className="text-4xl font-bold mb-4">{word.tr}</div>
-                <Button variant="secondary" size="sm" onClick={e => { e.stopPropagation(); speakWord(word.tr, 'tr') }} className="bg-white/20 hover:bg-white/30 text-white border-white/30">
-                  <Volume2 className="w-4 h-4 mr-2" />Dinle
-                </Button>
+                
               </div>
               <div className="absolute bottom-4 text-sm opacity-75 flex items-center"><EyeOff className="w-4 h-4 mr-1" />İngilizceyi görmek için dokun</div>
             </Card>
