@@ -1,8 +1,9 @@
 import {  NextResponse } from 'next/server'
 
+
 export async function GET() {
   try {
-    const response = await fetch('https://mewo-admin.vercel.app/api/active-words', {
+    const response = await fetch(`/api/active-words`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
