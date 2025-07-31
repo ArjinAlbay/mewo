@@ -34,7 +34,7 @@ export default function Flashcard({ word, totalWords, currentIndex, onCorrect, o
   return (
     <div className="flex flex-col h-full max-w-md mx-auto p-4">
       <div className="flex items-center justify-between mb-6">
-        <Badge variant="outline" className="text-sm">{currentIndex + 1} / {totalWords}</Badge>
+        <Badge variant="outline" className="text-sm">{currentIndex + 1} | {totalWords}</Badge>
         <Progress value={((currentIndex + 1) / totalWords) * 100} className="flex-1 mx-4 h-2" />
         <span className="text-sm text-gray-600">{wordProgress}/5</span>
       </div>
