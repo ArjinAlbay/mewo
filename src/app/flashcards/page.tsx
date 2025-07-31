@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft, Home } from 'lucide-react'
@@ -47,7 +47,7 @@ export default function FlashcardsPage() {
     return () => clearInterval(interval)
   }, [sessionStartTime, session])
 
-  const loadWordsAndStartSession = async () => {
+  const loadWordsAndStartSession = useCallback(async () => {
     setLoading(true)
     try {
       const fetchedWords = await fetchActiveWords()
@@ -82,7 +82,7 @@ export default function FlashcardsPage() {
       router.push('/')
     }
     setLoading(false)
-  }
+}, [isRandom, router])
 
   const handleAnswer = (isCorrect: boolean) => {
     const currentWord = words[currentWordIndex]
