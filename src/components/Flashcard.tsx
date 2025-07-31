@@ -78,11 +78,7 @@ export default function Flashcard({ word, totalWords, currentIndex, onCorrect, o
           <div className="text-sm text-gray-500 mt-1">Bir sonraki kelimeye geçiliyor...</div>
         </div>
       )}
-      <div className="mt-4 text-center">
-        <Button variant="ghost" size="sm" onClick={() => { setIsFlipped(false); setAnswered(false) }} className="text-gray-500">
-          <RotateCcw className="w-4 h-4 mr-1" />Kartı Sıfırla
-        </Button>
-      </div>
+      
     </div>
   )
 }
